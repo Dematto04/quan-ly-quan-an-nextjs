@@ -25,7 +25,7 @@ export async function POST(request: Request) {
         message: "Lỗi khi gọi đến server",
       },
       {
-        status: 2200
+        status: 200
       }
     );
   }
