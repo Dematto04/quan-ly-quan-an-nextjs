@@ -15,6 +15,7 @@ import { toast } from '@/hooks/use-toast'
 import { handleErrorApi } from '@/lib/utils'
 import { useRouter } from 'next/navigation'
 import { useAccountMe } from '@/queries/useAccount'
+import { useAppContext } from '@/components/app-provider'
 
 
 export default function DropdownAvatar() {
@@ -22,7 +23,7 @@ export default function DropdownAvatar() {
   const {data} = useAccountMe()
   const account = data?.payload.data
   const router = useRouter()
-
+  const {setIsAuth} = useAppContext()
   const logout =  async ()=> {
     if(logoutMutation.isPending) return 
     
@@ -31,6 +32,7 @@ export default function DropdownAvatar() {
       toast({
         description: 'Đăng xuất thành công'
       })
+      setIsAuth(false)
       router.replace('/')
     } catch (error) {
       handleErrorApi({error})

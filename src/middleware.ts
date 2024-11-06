@@ -11,7 +11,9 @@ export function middleware(request: NextRequest) {
 
   //Nếu user chưa đăng nhập mà vào private path thì nhảy sang login
   if (privatePaths.some((path) => pathname.startsWith(path)) && !refreshToken) {
-    const url = new URL("/login", request.url);
+    const url = new URL("/login", request.url)
+    url.searchParams.set('clearTokens', "true")
+
     return NextResponse.redirect(url);
   }
   //Nếu user đăng nhập rồi thì k cho vào login
@@ -24,11 +26,9 @@ export function middleware(request: NextRequest) {
     !accessToken &&
     refreshToken
   ) {
-    const url = new URL("/logout", request.url);
-    url.searchParams.set(
-      "refreshToken",
-      request.cookies.get("refreshToken")?.value ?? ""
-    );
+    const url = new URL("/refresh-token", request.url);
+    url.searchParams.set("refreshToken", refreshToken);
+    url.searchParams.set("redirect", pathname)
     return NextResponse.redirect(url);
   }
 
