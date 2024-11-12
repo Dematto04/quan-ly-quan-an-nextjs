@@ -7,7 +7,7 @@ import {
 } from "@/lib/utils";
 import { useLogoutMutation } from "@/queries/useAuth";
 import { useRouter, useSearchParams } from "next/navigation";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect } from "react";
 
 function Logout() {
   const { mutateAsync } = useLogoutMutation();
@@ -23,14 +23,14 @@ function Logout() {
       (accessTokenFromUrl &&
         accessTokenFromUrl === getAccessTokenFromLocalStorage())
     ) {
-      mutateAsync().then((res) => {
+      mutateAsync().then(() => {
         setIsAuth(false)
         router.push("/login");
       });
     } else {
       router.push('/')
     }
-  }, [mutateAsync, router, refreshTokenFromUrl, accessTokenFromUrl]);
+  }, [mutateAsync, router, refreshTokenFromUrl, accessTokenFromUrl, setIsAuth]);
   return <div>Logout...</div>;
 }
 

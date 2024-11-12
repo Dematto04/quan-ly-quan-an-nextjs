@@ -28,7 +28,10 @@ export default function Home() {
                 <div className='flex-shrink-0'>
                   <img
                     src='https://ik.imagekit.io/freeflo/production/6b91c700-92c4-4601-8e96-37d84ac3c28c.png?tr=w-2048,q-75&alt=media&pr-true'
-                    className='object-cover w-[150px] h-[150px] rounded-md'
+                    className='object-cover rounded-md'
+                    alt='Food'
+                    width={150}
+                    height={150}
                   />
                 </div>
                 <div className='space-y-1'>

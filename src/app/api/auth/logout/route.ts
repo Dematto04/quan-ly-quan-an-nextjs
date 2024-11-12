@@ -1,7 +1,7 @@
 import authApiRequest from "@/apiRequest/auth";
 
 import { cookies } from "next/headers";
-export async function POST(request: Request) {
+export async function POST() {
   const cookieStore = cookies();
   const accessToken = (await cookieStore).get("accessToken")?.value;
   const refreshToken = (await cookieStore).get("refreshToken")?.value;
@@ -19,10 +19,10 @@ export async function POST(request: Request) {
     const result = await authApiRequest.sLogout({ refreshToken, accessToken });
 
     return Response.json(result.payload);
-  } catch (error) {
+  } catch (error: any) {
     return Response.json(
       {
-        message: "Lỗi khi gọi đến server",
+        message: error.message || "Lỗi khi gọi đến server",
       },
       {
         status: 200
